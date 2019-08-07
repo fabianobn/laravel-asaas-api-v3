@@ -9,32 +9,38 @@ class Connection {
     public $http;
     public $api_key;
     public $base_url;
+    public $headers;
     
     public function __construct() {
         $this->api_token = config('asaas.api_key');
-        
-        $this->http = new Client([
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'access_token' => $this->api_key
-            ]
-        ]);
+        $this->base_url = config('asaas.base_url');
+        $this->headers = [
+            'access_token' => config('asaas.api_key'),        
+            'Accept'        => 'application/json',
+        ];
+        $this->http = new Client(['headers' => $this->headers]);
         
         return $this->http;
     }
-    
+
     public function get($url)
     {
-        $response = $this->http->get($this->base_url . $url);
-        $result = $response->getBody()->getContents();
-        return json_decode( $result );
+        try
+        {
+            $response = $this->http->request('GET', $this->base_url . $url);
+        }
+        catch(RequestException $e)
+        {
+            $response = $e->getResponse();
+            $this->handleError();
+        }
+        return $response->getBody(true);
     }
     
     public function post($url, $params)
     {
         // Faz a requisição
-        $response = $this->http->post($this->base_url . $url, $params);
-
+        $response = $this->http->request('POST', $this->base_url . $url, $params);
         // Retorna a resposta
         return [
             'code'     => $response->getStatusCode(),

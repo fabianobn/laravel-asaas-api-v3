@@ -26,7 +26,10 @@ class Cliente
         return $this->http->get('/customers');
     }
     
-    
+    public function get($client_id) {
+        return $this->http->get('/customers/' . $client_id);
+    }
+
     /**
      * Cria um novo cliente no Asaas.
      * @param Array $cliente
