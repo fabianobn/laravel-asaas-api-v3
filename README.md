@@ -36,3 +36,6 @@ $cobranca = [
 ];
 $create_cobranca = $asaas->cobranca->create($cobranca);
 ```
+
+## Credits
+First credit to rafaelxavierborges/laravel-asaas-api-v3
