@@ -38,4 +38,4 @@ $create_cobranca = $asaas->cobranca->create($cobranca);
 ```
 
 ## Credits
-First credit to [Github](https://github.com/rafaelxavierborges/laravel-asaas-api-v3)
+First credit to [Rafael - Laravel Asaas](https://github.com/rafaelxavierborges/laravel-asaas-api-v3)
